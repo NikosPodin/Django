@@ -10,7 +10,6 @@ def base(request):
     return render(request, 'mainapp/base.html')
 
 
-
 def products(request):
     category_content = ProductCategory.objects.all()
     products_content = Product.objects.all()
