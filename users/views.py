@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
-from users.forms import UserLoginForm, UserRegisterForm
+from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from django.contrib import auth, messages
 from django.urls import reverse
 
@@ -42,11 +42,25 @@ def register(request):
     }
     return render(request, 'users/register.html', context)
 
+# @login_requires
 def profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(data=request.POST,
+                               files=request.FILES,
+                               instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Ваш профиль был успешно обновлен")
+            return HttpResponseRedirect(reverse('users:profile'))
+        else:
+            messages.error(request, "Профиль не сохранён")
     context = {
-        'title': 'Geekshop - Профайл'
+        'title': 'Geekshop - Профайл',
+        'form': UserProfileForm(instance=request.user),
+            # 'baskets': Basket.objects.filter(user=request.user),
     }
     return render(request, 'users/profile.html', context)
+
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
