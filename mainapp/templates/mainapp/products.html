@@ -56,16 +56,12 @@
 
             <div class="row">
                 {% for product in products %}
-{#"name": "Черный рюкзак Nike Heritage",#}
-{#      "print": "2340.00",#}
-{#      "image": "product_images/Black-Nike-Heritage-backpack.png",#}
-{#      "description": "Плотная ткань. Легкий материал.",#}
 
                     <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <a href="#">
                             <img class="card-img-top"
-                                 src= {{ product.image.url }}
+                                 src= '{{ product.image.url }}'
                                  alt="">
                         </a>
                         <div class="card-body">
@@ -76,7 +72,8 @@
                             <p class="card-text">{{ product.description }}</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-success">Отправить в корзину</button>
+                           <a href="{% url 'baskets:basket' product.id %}" class="btn btn-outline-success">Отправить в корзину</a>
+
                         </div>
                     </div>
                 </div>

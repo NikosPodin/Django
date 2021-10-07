@@ -9,3 +9,24 @@ class Basket(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
     update_timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Корзина для {self.user.username} | Продукт {self.product.name}'
+
+
+    @property
+    def sum(self):
+        return self.quantity * self.product.price
+
+    @property
+    def total_quantity(self):
+        items = Basket.objects.filter(user=self.user)
+        total_quantity = sum(list(map(lambda x: x.quantity, items)))
+        # total_quantity = Basket.objects.filter(user=self.user).aggregate(Sum('quantity'))['quantity__sum']
+        return total_quantity
+
+    @property
+    def total_cost(self):
+        items = Basket.objects.filter(user=self.user)
+        total_cost = sum(list(map(lambda x: x.sum, items)))
+        return total_cost

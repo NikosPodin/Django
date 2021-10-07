@@ -16,11 +16,13 @@ Including another URLconf
 
 from django.urls import path
 
+import baskets.views
+from baskets.views import basket_add
 
-app_name= 'baskets'
+app_name = 'baskets'
 urlpatterns = [
-    # path('login/', users.login, name='login'),
-    # path('register/', users.register, name='register'),
-    # path('profile/', users.profile, name='profile'),
-    # path('logout/', users.logout, name='logout'),
+
+    path('add/<int:product_id>/', basket_add, name='basket'),
+    path('remove/<int:product_id>', baskets.views.basket_remove, name='basket_remove'),
+
 ]
