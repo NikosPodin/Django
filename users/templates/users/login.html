@@ -11,7 +11,9 @@
                             {{ message }}
                         {% endfor %}
                     {% else %}
-                        {{ form.non_field_errors }}
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
                     {% endif %}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -25,19 +27,19 @@
                 <div class="card-body">
                     <form action="{% url 'users:login' %}" method="post">
                         {% csrf_token %}
-                        {{ form.as_p }}
-{#                        <div class="form-group">#}
-{#                            <label class="small mb-1" for="inputEmailAddress">Имя пользователя</label>#}
-{#                            {{ form.username }}#}
-{#                        </div>#}
+{#                        {{ form.as_p }}#}
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputEmailAddress">Имя пользователя</label>
+                            {{ form.username }}
+                        </div>
                         {#                            <input class="form-control py-4" id="inputEmailAddress" type="email"#}
                         {#                                   placeholder="Введите имя пользователя"/>#}
                         {#                        </div>#}
-{#                        <div class="form-group">#}
-{#                            <label class="small mb-1" for="inputPassword">Пароль</label>#}
-{#                            {{ form.password }}#}
-{#                        </div>#}
-                        {#                            <input class="form-control py-4" id="inputPassword" type="password"#}
+                        <div class="form-group">
+                            <label class="small mb-1" for="inputPassword">Пароль</label>
+                            {{ form.password }}
+                        </div>
+{#                                                    <input class="form-control py-4" id="inputPassword" type="password"#}
                         {#                                   placeholder="Введите пароль"/>#}
                         {#                        </div>#}
                         <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">

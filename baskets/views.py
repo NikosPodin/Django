@@ -13,6 +13,7 @@ def basket_add(request, product_id):
 
     if not baskets.exists():
         Basket.objects.create(user=user_select, product=product, quantity=1)
+
     else:
         basket = baskets.first()
         basket.quantity += 1

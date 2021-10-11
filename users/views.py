@@ -22,7 +22,7 @@ def login(request):
 
     context = {
         'title': 'Geekshop - Авторизация',
-        'form': form
+        'form': form,
     }
     return render(request, 'users/login.html', context)
 
@@ -33,9 +33,6 @@ def register(request):
             form.save()
             messages.success(request, 'Вы успешно зарегистрировались!')
             return HttpResponseRedirect(reverse('users:login'))
-        else:
-            print(form.errors)
-
     else:
         form = UserRegisterForm()
     context = {
