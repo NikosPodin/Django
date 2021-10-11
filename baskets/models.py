@@ -16,7 +16,7 @@ class Basket(models.Model):
 
     @property
     def sum(self):
-        return self.quantity * self.product.print #print
+        return self.quantity * self.product.print
 
     @property
     def total_quantity(self):

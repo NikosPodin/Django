@@ -15,7 +15,7 @@
                     {#                    {% for message in messages %}#}
                     <div class="alert {% if messages %} alert-success {% else %} alert-warning {% endif %}alert-dismissible fade show"
                          role="alert" style="margin-top: 50px;">
-                        {% if massages %}
+                        {% if massages.errors %}
                             {% for massage in massages %}
 {#                                                        <div class="alert {% if message.tags == 'success' %} alert-success {% else %} alert-warning {% endif %} alert-dismissible fade show"#}
                                 {#                             role="alert" style="margin-top: 50px;">#}
