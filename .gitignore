@@ -5,3 +5,5 @@ db.sqlite3
 ../venv
 /media
 /1208-1184-1214
+/admin
+/auth
