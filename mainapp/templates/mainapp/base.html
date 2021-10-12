@@ -36,16 +36,16 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'mainapp:index' %}">Каталог <i class="fas fa-shopping-bag"></i></a>
                 </li>
-{#                <li class="nav-item">#}
-{#                    <a class="nav-link" href="#"><i class="fas fa-shopping-bag"></i></a>#}
-{#                </li>#}
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-shopping-bag"></i></a>
+                </li>
                 {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'users:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ user }}">User
+                        <a class="nav-link" href="{% url 'users:profile' %}">User
                             <i class="fas fa-user-circle"></i>
                         </a>
                     </li>
