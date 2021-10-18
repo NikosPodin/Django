@@ -22,7 +22,3 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name} | {self.category}'
 
-
-    # class ShopUser(AbstractUser):
-    #     avatar = models.ImageField(upload_to='users_avatars', blank=True)
-    #     age = models.PositiveIntegerField(verbose_name='возраст')
