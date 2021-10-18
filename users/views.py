@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.conf import settings
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, FormView, UpdateView
 
-from geekshop.mixin import BaseClassContextMixin, CustomDispatchMixin
+from geekshop.mixin import BaseClassContextMixin, CustomDispatchMixin, UserDispatchMixin
 from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from django.contrib import auth, messages
 from django.urls import reverse, reverse_lazy
@@ -13,31 +15,30 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from users.models import User
 
 
-# class LoginListView(LoginView,BaseClassContextMixin):
-#     template_name = 'users/login.html'
-#     form_class = UserLoginForm
-#     title = 'Geekshop -Авторизация'
+class LoginListView(LoginView, BaseClassContextMixin):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
+    title = 'Geekshop -Авторизация'
 
 
-
-def login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
-            if user.is_active:
-                auth.login(request, user)
-                return HttpResponseRedirect(reverse('index'))
-    else:
-        form = UserLoginForm()
-
-    context = {
-        'title': 'Geekshop - Авторизация',
-        'form': form
-    }
-    return render(request, 'users/login.html', context)
+# def login(request):
+#     if request.method == 'POST':
+#         form = UserLoginForm(data=request.POST)
+#         if form.is_valid():
+#             username = request.POST['username']
+#             password = request.POST['password']
+#             user = auth.authenticate(username=username, password=password)
+#             if user.is_active:
+#                 auth.login(request, user)
+#                 return HttpResponseRedirect(reverse('index'))
+#     else:
+#         form = UserLoginForm()
+#
+#     context = {
+#         'title': 'Geekshop - Авторизация',
+#         'form': form
+#     }
+#     return render(request, 'users/login.html', context)
 
 # def register(request):
 #     if request.method == 'POST':
@@ -66,8 +67,8 @@ class RegisterListView(FormView, BaseClassContextMixin):
         if form.is_valid():
             form.save()
             messages.success(request, 'Вы успешно зарегистрировались!')
+            return redirect(self.success_url)
         return redirect(self.success_url)
-
 
 
 # @login_required
@@ -90,7 +91,7 @@ class RegisterListView(FormView, BaseClassContextMixin):
 #     }
 #     return render(request, 'users/profile.html', context)
 
-class ProfileFormView(UpdateView,BaseClassContextMixin): #CustomDispatchMixin, LoginRequiredMixin
+class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):  # CustomDispatchMixin, LoginRequiredMixin
     model = User
     form_class = UserProfileForm
     template_name = 'users/profile.html'
@@ -99,10 +100,10 @@ class ProfileFormView(UpdateView,BaseClassContextMixin): #CustomDispatchMixin, L
 
     def get_object(self, queryset=None):
         return get_object_or_404(User, pk=self.request.user.pk)
-    
-    @method_decorator(user_passes_test(lambda u: u.is_authenticated))
-    def dispatch(self, request, *args, **kwargs):
-        return super(ProfileFormView, self).dispatch(request, *args, **kwargs)
+
+    # @method_decorator(user_passes_test(lambda u: u.is_authenticated))
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(ProfileFormView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(ProfileFormView, self).get_context_data(**kwargs)
@@ -115,8 +116,6 @@ class ProfileFormView(UpdateView,BaseClassContextMixin): #CustomDispatchMixin, L
             form.save()
             return redirect(self.success_url)
         return redirect(self.success_url)
-
-
 
 
 class Logout(LogoutView):

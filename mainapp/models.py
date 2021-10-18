@@ -1,7 +1,7 @@
 from django.db import models
-# from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+
+# from django.contrib.auth.models import AbstractUser
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=64, unique=True)
@@ -21,4 +21,3 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name} | {self.category}'
-

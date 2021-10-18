@@ -2,7 +2,7 @@
 
 from django.urls import path
 
-from admins.views import index, UserCreateView, UserListView, UserUpdateView, UserDeleteView, CategoriesListView, \
+from .views import index, UserCreateView, UserListView, UserUpdateView, UserDeleteView, CategoriesListView, \
     CategoryCreateView, CategoryUpdateView, CategoryDeleteView, ProductsListView, ProductsUpdateView, \
     ProductsCreateView, ProductsDeleteView
 
