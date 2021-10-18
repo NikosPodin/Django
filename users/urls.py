@@ -20,7 +20,7 @@ import users.views as users
 app_name= 'users'
 urlpatterns = [
     path('login/', users.login, name='login'),
-    path('register/', users.register, name='register'),
-    path('profile/', users.profile, name='profile'),
-    path('logout/', users.logout, name='logout'),
+    path('register/', users.RegisterListView.as_view(), name='register'),
+    path('profile/', users.ProfileFormView.as_view(), name='profile'),
+    path('logout/', users.Logout.as_view(), name='logout'),
 ]

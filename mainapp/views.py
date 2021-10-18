@@ -27,7 +27,7 @@ def base(request):
 def products(request,category_id=None,page_id=1):
     category_content = ProductCategory.objects.all()
     products_content = Product.objects.all() if category_id is None else Product.objects.filter(category_id=category_id)
-    products = Product.objects.filter(category_id=category_id) if category_id !=None else Product.objects.all()
+    # products = Product.objects.filter(category_id=category_id) if category_id !=None else Product.objects.all()
 
     paginator = Paginator(products_content, per_page=3)
     try:
@@ -36,7 +36,6 @@ def products(request,category_id=None,page_id=1):
         products_paginator = paginator.page(1)
     except EmptyPage:
         products_paginator = paginator.page(paginator.num_pages)
-
 
     content = {
         'title': 'GeekShop - Каталог',
