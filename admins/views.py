@@ -11,6 +11,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 
+
 # блог по Users
 def index(request):
     return render(request, 'admins/admin.html')
@@ -118,6 +119,7 @@ class CategoryDeleteView(DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return HttpResponseRedirect(self.get_success_url())
+
 
 
 #блог по Products
