@@ -13,31 +13,31 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from users.models import User
 
 
-# class LoginListView(LoginView,BaseClassContextMixin):
-#     template_name = 'users/login.html'
-#     form_class = UserLoginForm
-#     title = 'Geekshop -Авторизация'
+class LoginListView(LoginView,BaseClassContextMixin):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
+    title = 'Geekshop -Авторизация'
 
 
-
-def login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
-            if user.is_active:
-                auth.login(request, user)
-                return HttpResponseRedirect(reverse('index'))
-    else:
-        form = UserLoginForm()
-
-    context = {
-        'title': 'Geekshop - Авторизация',
-        'form': form
-    }
-    return render(request, 'users/login.html', context)
+#
+# def login(request):
+#     if request.method == 'POST':
+#         form = UserLoginForm(data=request.POST)
+#         if form.is_valid():
+#             username = request.POST['username']
+#             password = request.POST['password']
+#             user = auth.authenticate(username=username, password=password)
+#             if user.is_active:
+#                 auth.login(request, user)
+#                 return HttpResponseRedirect(reverse('index'))
+#     else:
+#         form = UserLoginForm()
+#
+#     context = {
+#         'title': 'Geekshop - Авторизация',
+#         'form': form
+#     }
+#     return render(request, 'users/login.html', context)
 
 # def register(request):
 #     if request.method == 'POST':
