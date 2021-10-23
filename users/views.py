@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.conf import settings
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.mail import send_mail
 from django.shortcuts import render, HttpResponseRedirect, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, FormView, UpdateView
@@ -113,7 +114,9 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):  # 
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST, files=request.FILES, instance=self.get_object())
         if form.is_valid():
-            form.save()
+            user = form.save()
+            if send_verify_link(user):
+                messages.success(request,'Вы успешно зарегистрировались')
             return redirect(self.success_url)
         return redirect(self.success_url)
 
@@ -121,6 +124,25 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):  # 
 class Logout(LogoutView):
     template_name = 'mainapp/index.html'
 
+
 # def logout(request):
 #     auth.logout(request)
 #     return HttpResponseRedirect(reverse('index'))
+def send_verify_link(user):
+    verify_link = reverse('users:verify', args=[user.email, user.activation_key])
+    subject = f'Для активации учётной записи {user.username} пройдите по ссылке'
+    massage = f'Для подтверджения учётной записи {user.username} на портале \n {settings.DOMAIN_NAME}{verify_link}'
+    return send_mail(subject, messages, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+
+
+def verify(request, email, activasion_key):
+    try:
+        user = User.objects.get(email=email)
+        if user and user.activation_key == activasion_key and not user.is_activation_key_expired():
+            user.activation_key = ''
+            user.activation_key_created = None
+            user.is_active = True
+            auth.login(request, user)
+        return render(request, 'users/verification.html')
+    except Exception as e:
+        return HttpResponseRedirect(reverse('index'))
