@@ -8,3 +8,6 @@ db.sqlite3
 /admin
 /auth
 .env
+fill_db.bat
+migrate.bat
+run.bat
