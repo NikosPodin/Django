@@ -1,0 +1,15 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0JTQu9GPINCw0LrRgtC40LLQsNGG0LjQuCDRg9GH0LXRgtC90L7QuSDQt9Cw0L8=?=
+ =?utf-8?b?0LjRgdC4IHRlc3QxMTEg0L/RgNC+0LnQtNC40YLQtSDQv9C+INGB0YHRi9C70Lo=?=
+ =?utf-8?b?0LU=?=
+From: django
+To: test111@mail.ru
+Date: Sat, 23 Oct 2021 21:44:24 -0000
+Message-ID: <163502546493.5316.15675995672325994562@Nikos>
+
+Для подтвердения учетной записи test111 на портале 
+ http:/localhost:8000/users/verify/test111@mail.ru/6ac4833cdd8119b526cde9a4a6cad2573fac2ec3/
+-------------------------------------------------------------------------------

@@ -37,8 +37,9 @@ class UserRegisterForm(UserCreationForm):
 
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
+
     def save(self, commit=True):
-        user=super(UserRegisterForm, self).save()
+        user = super().save()
         user.is_active = False
         salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
         user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
@@ -47,10 +48,14 @@ class UserRegisterForm(UserCreationForm):
 
 
     def clean(self):
-        """Checks name fields length"""
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            msg = "Email уже используется"
+            self.add_error('email', msg)
+
         new_cleaned_data = super().clean()
         for field in new_cleaned_data:
-            if len(new_cleaned_data[field]) < 3:
+            if not field == 'image' and len(new_cleaned_data[field]) < 3:
                 raise ValidationError('Слишком короткий логин, имя или фамилия.')
         return new_cleaned_data
 
@@ -78,21 +83,6 @@ class UserProfileForm(UserChangeForm):
     #     return data
 #ВОЗМОЖНО ПОЭТОМУ НЕ ГРУЗИТСЯ
 
-    def clean_last_name(self):
-        data = self.cleaned_data['last_name']
-        if re.search(r'\d+', data):
-            raise ValidationError('Фамилия не должна включать цифры')
-        elif len(data) < 3:
-            raise ValidationError('Слишком короткая фамилия')
-        return data
 
-
-    def clean_first_name(self):
-        data = self.cleaned_data['first_name']
-        if re.search(r'\d+', data):
-            raise ValidationError('Имя не должно включать цифры')
-        elif len(data) < 3:
-            raise ValidationError('Слишком короткое имя')
-        return data
 
 

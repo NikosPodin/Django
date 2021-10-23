@@ -1,17 +1,20 @@
+import os
 from django.shortcuts import render
 from .models import ProductCategory, Product
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
 # import  os
 #
-# MODULE_DIR = os.path.dirname(__file__)
+MODULE_DIR = os.path.dirname(__file__)
 
+
+# def index(request):
+#     context = {
+#         'title': 'geekshop',
+#     }
+#     return render(request, 'mainapp/index.html', context)
 def index(request):
-    context = {
-        'title': 'geekshop',
-    }
-    return render(request, 'mainapp/index.html', context)
+    return render(request, 'mainapp/index.html')
 
 
 def base(request):
@@ -31,7 +34,8 @@ def products(request, category_id=None, page_id=1):
     # products = Product.objects.filter(category_id=category_id) if category_id !=None else Product.objects.all()
     category_content = ProductCategory.objects.all()
 
-    paginator = Paginator(products_content, per_page=3)
+    paginator: Paginator = Paginator(products_content,
+                                     per_page=3)  # Было Paginator = Paginator(products_content, per_page=3)
     try:
         products_paginator = paginator.page(page_id)
     except PageNotAnInteger:

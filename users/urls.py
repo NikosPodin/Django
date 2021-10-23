@@ -25,5 +25,5 @@ urlpatterns = [
     path('profile/', users.ProfileFormView.as_view(), name='profile'),
     path('logout/', users.Logout.as_view(), name='logout'),
 
-    path('verify/<str:email>/<str:activation_key>/',users.verify,name='verify')
+    path('verify/<str:email>/<str:activation_key>/', users.verify, name='verify'),
 ]
