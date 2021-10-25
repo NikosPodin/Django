@@ -116,6 +116,7 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):  # 
     #     context = super(ProfileFormView, self).get_context_data(**kwargs)
     #     context['baskets'] = Basket.objects.filter(user=self.request.user)
     #     return context
+    # Так как через contex_processor уже передаётся
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST, files=request.FILES, instance=self.get_object())
