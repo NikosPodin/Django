@@ -15,7 +15,7 @@ class Product(models.Model):
     name = models.CharField(max_length=256)
     print = models.DecimalField(max_digits=8, decimal_places=2)
     image = models.ImageField(upload_to='product_images', blank=True)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, max_length=256)
     quantity = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
 

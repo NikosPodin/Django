@@ -26,23 +26,22 @@ class UserLoginForm(AuthenticationForm):
 class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2',)
+
 
     def __init__(self, *args, **kwargs):
-        # super(UserRegisterForm, self).__init__(*args, **kwargs)
-        super().__init__(*args, **kwargs)
+        super(UserRegisterForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['placeholder'] = 'Введите имя пользователя'
+        self.fields['email'].widget.attrs['placeholder'] = 'Введите адрес эл.почты'
         self.fields['first_name'].widget.attrs['placeholder'] = 'Введите имя'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Введите фамилию'
-        self.fields['username'].widget.attrs['placeholder'] = 'Введите имя пользователя'
-        self.fields['email'].widget.attrs['placeholder'] = 'Введите адрес эл. почты'
         self.fields['password1'].widget.attrs['placeholder'] = 'Введите пароль'
         self.fields['password2'].widget.attrs['placeholder'] = 'Подтвердите пароль'
-
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
 
     def save(self, commit=True):
-        user = super().save()
+        user = super(UserRegisterForm, self).save()
         user.is_active = False
         salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
         user.activation_key = hashlib.sha1((user.email + salt).encode('utf8')).hexdigest()
@@ -63,15 +62,15 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserProfileForm(UserChangeForm):
-    image = forms.ImageField(widget=forms.FileInput(), required=False)
 
+    image = forms.ImageField(widget=forms.FileInput(),required=False)
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'age', 'username', 'email', 'image')
+        fields =  ('username', 'email','age', 'first_name', 'last_name','image')
 
-    def __init__(self, *args, **kwargs):
-        super(UserProfileForm, self).__init__(*args, **kwargs)
-        # super().__init__(*args, **kwargs)
+
+    def __init__(self,*args,**kwargs):
+        super(UserProfileForm, self).__init__(*args,**kwargs)
         self.fields['username'].widget.attrs['readonly'] = True
         self.fields['email'].widget.attrs['readonly'] = True
 
@@ -89,9 +88,10 @@ class UserProfileForm(UserChangeForm):
 # ВОЗМОЖНО ПОЭТОМУ НЕ ГРУЗИТСЯ
 
 class UserProfileEditForm(forms.ModelForm):
+
     class Meta:
         model = UserProfile
-        fields = ('tagline', 'about', 'gender',)
+        fields = ('tagline', 'about', 'gender', )
 
     def __init__(self, *args, **kwargs):
         super(UserProfileEditForm, self).__init__(*args, **kwargs)
