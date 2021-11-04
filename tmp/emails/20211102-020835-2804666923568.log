@@ -1,0 +1,15 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0JTQu9GPINCw0LrRgtC40LLQsNGG0LjQuCDRg9GH0LXRgtC90L7QuSDQt9Cw0L8=?=
+ =?utf-8?b?0LjRgdC4IG5pa3Rlc3QxINC/0YDQvtC50LTQuNGC0LUg0L/QviDRgdGB0YvQu9C6?=
+ =?utf-8?b?0LU=?=
+From: django
+To: niktest1@mail.ru
+Date: Mon, 01 Nov 2021 21:08:35 -0000
+Message-ID: <163580091511.11744.9567998535703412598@Nikos>
+
+Для подтвердения учетной записи niktest1 на портале 
+ http:/localhost:8000/users/verify/niktest1@mail.ru/2ea5c5185d4c468e2375b1598cc4bb3aade3d05d/
+-------------------------------------------------------------------------------

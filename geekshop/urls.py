@@ -15,17 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from mainapp.views import index
+# from mainapp.views import index
 from django.conf import settings
 from django.conf.urls.static import static
+import mainapp.views as mainapp
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
-    path('products/', include('mainapp.urls', namespace='mainapp',)),
+    path('', mainapp.index, name='index'),
+    path('products/', include('mainapp.urls', namespace='mainapp', )),
     path('users/', include('users.urls', namespace='users')),
+    path('baskets/', include('baskets.urls', namespace='baskets')),
+    path('admins/', include('admins.urls', namespace='admins')),
+    path('', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:
-    urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
-
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

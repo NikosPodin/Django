@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0JTQu9GPINCw0LrRgtC40LLQsNGG0LjQuCDRg9GH0LXRgtC90L7QuSDQt9Cw0L8=?=
+ =?utf-8?b?0LjRgdC4IG5pa25payDQv9GA0L7QudC00LjRgtC1INC/0L4g0YHRgdGL0LvQutC1?=
+From: django
+To: niknik@mail.ru
+Date: Wed, 27 Oct 2021 20:24:23 -0000
+Message-ID: <163536626309.5692.13988530600231319358@Nikos>
+
+Для подтвердения учетной записи niknik на портале 
+ http:/localhost:8000/users/verify/niknik@mail.ru/67f218c4eb7862ae9b79ca9ca03a61ff9afa74ac/
+-------------------------------------------------------------------------------

@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0JTQu9GPINCw0LrRgtC40LLQsNGG0LjQuCDRg9GH0LXRgtC90L7QuSDQt9Cw0L8=?=
+ =?utf-8?b?0LjRgdC4IE5pa1Qg0L/RgNC+0LnQtNC40YLQtSDQv9C+INGB0YHRi9C70LrQtQ==?=
+From: django
+To: NikT@ya.ru
+Date: Tue, 02 Nov 2021 20:14:29 -0000
+Message-ID: <163588406993.5984.8580087369743369496@Nikos>
+
+Для подтверждения учетной записи NikT на портале 
+ http:/localhost:8000/users/verify/NikT@ya.ru/3a376df5843b739c054713305f83666bfc9743b4/
+-------------------------------------------------------------------------------

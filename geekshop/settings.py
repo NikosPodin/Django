@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,8 +28,7 @@ SECRET_KEY = 'django-insecure-tc+niz(nm%7xbu4i%ai#))k=cgh2j@lqn-^wp-mew%%d5!7&()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -39,16 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp',
     'users',
+    'baskets',
+    'admins',
+    'social_django'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'geekshop.urls'
@@ -56,8 +62,7 @@ ROOT_URLCONF = 'geekshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,13 +70,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'mainapp.context_processors.basket',
+                'mainapp.context_processors.categories',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'geekshop.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -82,7 +90,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -102,11 +109,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
-
-LANGUAGE_CODE = 'ru'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -116,15 +122,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (BASE_DIR, "static",)
-#     (
-#     os.path.join(BASE_DIR, "static",),
-# )
+STATICFILES_DIRS = (BASE_DIR / 'static',)
+
 
 
 # Default primary key field type
@@ -135,3 +138,54 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_ERROR_URL = '/'
+
+DOMAIN_NAME = 'http:/localhost:8000'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True if os.getenv('EMAIL_USE_SSL') == 'True' else False
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/emails'
+
+# EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+# python -m smtpd -n -c DebuggingServer localhost:25
+
+#yandex
+# DOMAIN_NAME = 'http:/localhost:8000'
+# EMAIL_HOST = 'smtp.yandex.com'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'Ваша почта'
+# EMAIL_HOST_PASSWORD ='Ваш пароль'
+# EMAIL_USE_SSL = True
+
+
+# id_vk = 7984572
+# key_vk = JdIhEXpIACckvypMBzqm
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '7984572'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'JdIhEXpIACckvypMBzqm'
+SOCIAL_AUTH_VK_OAUTH2_API_VERSION = '5.131'
+SOCIAL_AUTH_VK_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+
+AUTHENTICATION_BACKENDS=(
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
+)
+
+# SOCIAL_AUTH_PIPELINE = (
+#     'social_core.pipeline.social_auth.social_details',
+#     'social_core.pipeline.social_auth.social_uid',
+#     'social_core.pipeline.social_auth.auth_allowed',
+#     'social_core.pipeline.social_auth.social_user',
+#     'social_core.pipeline.user.create_user',
+#     'users.pipelines.save_user_profile',
+#     'social_core.pipeline.social_auth.associate_user',
+#     'social_core.pipeline.social_auth.load_extra_data',
+#     'social_core.pipeline.user.user_details',
+# )
