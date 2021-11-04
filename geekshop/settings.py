@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -167,7 +167,7 @@ EMAIL_FILE_PATH = 'tmp/emails'
 # id_vk = 7984572
 # key_vk = JdIhEXpIACckvypMBzqm
 
-SOCIAL_AUTH_VK_OAUTH2_KEY = 7984572
+SOCIAL_AUTH_VK_OAUTH2_KEY = '7984572'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'JdIhEXpIACckvypMBzqm'
 SOCIAL_AUTH_VK_OAUTH2_API_VERSION = '5.131'
 SOCIAL_AUTH_VK_OAUTH2_IGNORE_DEFAULT_SCOPE = True
